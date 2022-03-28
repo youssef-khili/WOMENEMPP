@@ -1,6 +1,6 @@
 package tn.esprit.spring.service;
 
-import java.util.List;
+import java.util.*;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,8 +68,20 @@ public class TrainingServiceImpl implements ITrainingService {
 		Integer revenue =  (t.getCost()*userRepository.getRevenueByFormation(idTraining).size());
 		return  revenue;
 	}
+	public Training getMaxRevenueByFormation(){
+		Map<Training,Integer> training_revenu=new HashMap<>();
+		for(Training t:trainingrepository.findAll()){
+			training_revenu.put(t,getRevenueByFormation(t.getIdTraining()));
+		}
+		LinkedHashMap<Training,Integer> sortTrainingByRevenu=new LinkedHashMap<>();
+		training_revenu.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder()))
+				.forEachOrdered(x->sortTrainingByRevenu.put(x.getKey(),x.getValue()));
+		System.out.println(sortTrainingByRevenu);
+		System.out.println(sortTrainingByRevenu.keySet().iterator().next());
+		return sortTrainingByRevenu.keySet().iterator().next();
+	}
 
-	@Scheduled(cron = "*/30 * * * * *")
+	//@Scheduled(cron = "*/30 * * * * *")
 	public void ListComplete()
 	{
 		for(Training t : trainingrepository.findAll())
@@ -84,6 +96,7 @@ public class TrainingServiceImpl implements ITrainingService {
 			}
 		}
 	}
+
 	
 
 }

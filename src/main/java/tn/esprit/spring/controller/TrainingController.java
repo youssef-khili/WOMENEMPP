@@ -55,7 +55,7 @@ public class TrainingController {
 	public ResponseEntity<byte[]> addTraining(@RequestBody Training t) throws Exception{
 
 		traingservice.addTraining(t);
-		return ResponseEntity.status(HttpStatus.OK).body(QRCodeGenerator.getQRCodeImage(t.getTrainingName(), 500, 500));
+		return ResponseEntity.status(HttpStatus.OK).body(QRCodeGenerator.getQRCodeImage(String.valueOf(t.getCertificat()), 500, 500));
 	}
 	
 	// http://localhost:8080/SpringMVC/training/remove-training/{id}
@@ -123,6 +123,11 @@ public class TrainingController {
 
 		QRCodeGenerator.generateQRCodeImage(path, width, height, QR_CODE_IMAGE_PATH);
 
+	}
+	// http://localhost:8080/SpringMVC/training/getMaxRevenueByFormation
+	@GetMapping("/getMaxRevenueByFormation")
+	public Training getMaxRevenueByFormation(){
+		return traingservice.getMaxRevenueByFormation();
 	}
 
 }

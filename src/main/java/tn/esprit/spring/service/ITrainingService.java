@@ -13,5 +13,8 @@ public interface ITrainingService  {
 	Training retrieveTraining(Integer IdTraining);
 	void affecterApprenantFormation(Integer idUser,Integer IdTraining);
 	Integer getRevenueByFormation(Integer idTraining);
+	//String formationPlusRentable(Integer getRevenueByFormation );
+	public Training getMaxRevenueByFormation();
+
 
 }

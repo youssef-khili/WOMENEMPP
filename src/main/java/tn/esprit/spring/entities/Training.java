@@ -45,6 +45,8 @@ public class Training implements Serializable {
 	
 	@Enumerated(EnumType.STRING)
 	private TrainingType trainingType;
+	@Enumerated(EnumType.STRING)
+	private CERTIFICAT certificat;
 	private Date sessionStartDate;
 	private Date sessionEndDate;
 	private Integer maximumParticipantNumber;
